@@ -15,6 +15,11 @@ class webserverHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         try:
             if self.path.endswith('/restaurants'):
+                if self.path.endswith('/new'):
+                    self.send_response(200)
+                    self.send_header('Content-Type', 'text/html')
+                    self.end_headers()
+                    
                 self.send_response(200)
                 self.send_header('Content-Type', 'text/html')
                 self.end_headers()
@@ -22,6 +27,9 @@ class webserverHandler(BaseHTTPRequestHandler):
                 output += "<html><body>"
                 for restaurant in session.query(Restaurant).all():
                     output += "<h1> %s </h1>" % restaurant.name
+                    output += '<a href="/hello">Edit \n</a>'
+                    output += "<br>"
+                    output += '<a href="/hello">\n Delete</a>'
                 output += "</html></body>"
                 self.wfile.write(output.encode())
                 print(output)

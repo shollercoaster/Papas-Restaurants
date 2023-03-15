@@ -52,6 +52,17 @@ for veggieBurger in veggieBurgers:
     veggieBurgerDetails.append([veggieBurger.id, veggieBurger.price, veggieBurger.restaurant.name])
 print(veggieBurgerDetails)
 
+papasPizzas = session.query(Restaurant).filter_by(name = "Papa's Pizzeria")
+for place in papasPizzas:
+    session.delete(place)
+    session.commit()
+
+pizzaPalaces = session.query(Restaurant).filter_by(name = "Pizza Palace").all()
+pizzaPalaces[0].name = "Papa's Pizzeria"
+session.add(pizzaPalaces[0])
+session.commit()
+print(pizzaPalaces[0].name)
+
 # spinach = session.query(MenuItem).filter_by(name = 'Spinach Ice Cream').one()
 # print(spinach.restaurant.name)
 
